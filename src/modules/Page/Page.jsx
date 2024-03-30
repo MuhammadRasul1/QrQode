@@ -139,8 +139,8 @@ export const Page = () => {
               <Box className={cls.inputWrapper}>
                 <label className={cls.label} htmlFor="gender">Jinsi</label>
                 <Select {...register("gender")} id="gender">
-                  <option value="Erkak" selected>Erkak</option>
-                  <option value="Ayol">Ayol</option>
+                  <option value="Мужчина" selected>Erkak</option>
+                  <option value="Женщина">Ayol</option>
                 </Select>
               </Box>
               <Box className={cls.inputWrapper}>
