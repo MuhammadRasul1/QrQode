@@ -80,7 +80,7 @@ export const Router = observer(() => {
   // } else {
     return (
       <Routes>
-        <Route path="users" element={<Page />} />
+        <Route path="" element={<Page />} />
       </Routes>
     );
   // }
