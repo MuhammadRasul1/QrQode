@@ -1,0 +1,1 @@
+export { ScheduleTeacher } from './ScheduleTeacher';

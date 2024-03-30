@@ -1,0 +1,64 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.inputWrapper {
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    display: flex;
+    border: 1px solid $icon-color;
+    background: $white;
+    border-radius: 8px;
+}
+
+.label {
+    margin-right: 0;
+    margin-bottom: 8px;
+    color: $dark-grey;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0px;
+}
+
+.input {
+    max-width: 542px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    margin-left: 12px;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+    letter-spacing: -0.084px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input::placeholder {
+    color: $icon-color;
+}
+
+.input.error {
+    color:  $required;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; 
+    letter-spacing: -0.096px;
+    border: 2px solid  $required;
+    background:  $black-white-white;
+}
+
+.required {
+    margin-left: 4px;
+    color: $required;
+}

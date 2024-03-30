@@ -1,0 +1,138 @@
+.sidebar {
+  width: 280px;
+  font-family: Inter;
+  background-color: #F1F3F5;
+  transition: width 0.4s ease-in-out;
+}
+
+.sidebar.closed {
+  width: 55px;
+  transition: width 0.4s ease-in-out;
+}
+
+.active:is(:link, :active, :visited).active {
+  background-color: #403ef5;
+  border-radius: 8px;
+  color: #fff;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.wrapper {
+  width: 280px;
+  background-color: #F1F3F5;
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #0067F4;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.006em;
+  text-align: left;
+}
+
+.logoText {
+  margin-left: 8px;
+}
+
+.logoText.closed {
+  display: none;
+}
+
+.logoimg.closed {
+  display: none;
+}
+
+.closeBtn {
+  border: 1px solid #E5E9EB;
+  padding: 4px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.closeBtn:hover {
+  background-color: #f2f7fa;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out ;
+}
+
+.navbar {
+  width: 280px;
+  margin-top: 7px;
+  margin-bottom: 100px;
+}
+
+.navList {
+  @include reset-list;
+}
+
+.navItem {
+  padding: 0 12px;
+  color: black; 
+  text-decoration: none; 
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.accardion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.accardionItem {
+
+  padding: 0 12px;
+  color: black; 
+  text-decoration: none; 
+  border-radius: 8px;
+}
+
+.navLink {
+  // max-width: 280px;
+  width: 100%;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: $dark-grey;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 25px;
+  letter-spacing: -0.006em;
+  border-radius: 8px;
+}
+
+.navLink:hover {
+  background-color: #d2d2d2;
+}
+
+.navLink.closed {
+  display: none;
+  background-color: black;
+  width: 55px;
+  padding: 0;
+}
+
+.navText {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.006em;
+  transition: transform 2s;
+  margin-left: 12px;
+}
+
+.icon {
+  color: #0067F4;
+  width: 24px;
+  height: 24px;
+}

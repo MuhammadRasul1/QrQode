@@ -1,0 +1,21 @@
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px; /* Ширина модального окна */
+    background-color: white;
+    z-index: 9999; /* Перекрывает другие элементы */
+    overflow-y: auto; /* Добавляет вертикальную прокрутку, если контент не помещается */
+    -webkit-overflow-scrolling: touch; /* Для плавной прокрутки на мобильных устройствах */
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+    z-index: 9998; /* Ниже модального окна, но выше всего остального */
+  }

@@ -1,0 +1,39 @@
+.wrapper {  
+    font-family: "Inter", sans-serif;
+    display: flex;
+    align-items: start;
+    height: 100vh;
+    justify-content: space-between;
+    background: $black-white-white;
+    .wrapperLeft {  
+        padding-top: 64px;
+        max-width: 732px;
+        width: 100%;
+    }
+    .title {
+        text-align: center;
+        color: $light-blue;
+        margin-bottom: 28px;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 48px; 
+        letter-spacing: -0.168px;
+    }
+    .img {
+        width: 100%;
+        height: max-content;
+    }
+    .wrapperContent {
+        max-width: 732px;
+        width: 100%;
+        height: 100vh;
+        border-radius: 48px 0px 0px 48px;
+        background-color: #FFF;
+        padding: 40px 76px 24px 64px;
+    }
+    @include breakpoint-down(750px) {
+        .wrapperLeft {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,76 @@
+.content {
+  background-color: #fff;
+}
+
+.table {
+  margin: 15px;
+}
+
+.wrapperDate {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.label {
+  color: #000;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.006em;
+  text-align: left;
+}
+
+.wrapper:not(:last-child) {
+  margin-bottom: 18px;
+}
+
+.formModal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  cursor: pointer;
+  color: #0067F4;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.006em;
+  text-align: left;
+}
+
+.dynamicSelect {
+  max-width: 360px;
+}
+
+
+.infoList {
+  @include reset-list;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.infoItem {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: #7E807E;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 14.52px;
+  text-align: left; 
+}
+
+.infoText {
+  margin-right: 18px;   
+}
+
+.infoText {
+
+}

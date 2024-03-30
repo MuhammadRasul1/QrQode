@@ -1,0 +1,23 @@
+.schedule {
+       display: block;
+}
+
+.header {
+       width: 100%;
+       font-family: Inter;
+       position: fixed;
+       left: 280px;
+       top: 0;
+       z-index: 20;
+       padding: 17px 0;
+       border-bottom: 1px solid #E5E9EB;
+       background-color: #fff;
+}
+
+.title {
+       color: #121212;
+       font-size: 20px;
+       font-weight: 600;
+       line-height: 24px;
+       letter-spacing: 0em;
+}

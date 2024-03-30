@@ -1,0 +1,70 @@
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 1px;
+  width: 280px;
+  z-index: 20;
+  // background-color: #fff;
+  background-color: #F1F3F5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.profileWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px ;
+}
+
+.userProfile {
+  position: relative;
+  display: flex;
+  align-items: start;
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.userAvatar {
+  border-radius: 50%;
+  background-color: $grey;
+}
+
+.status {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  width: 13px;
+  height: 13px;
+}
+
+.userWrapper {
+  display: flex;
+}
+
+.userFirstName {
+  margin-right: 4px;
+  color: $dark-blue;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.006em;
+}
+
+.userLastName {
+  color: $dark-blue;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.006em;
+}
+
+.email {
+  margin-top: 2px;
+  color: $grey;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: -0.006em;
+  text-align: left;
+}

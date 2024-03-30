@@ -1,0 +1,65 @@
+stages:
+  - build
+  - deploy
+
+before_script:
+  - docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD
+
+variables:
+  IMAGE_NAME: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
+  CONTAINER_NAME: ${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}
+
+.build:
+  stage: build
+  image: docker:dind
+  script:
+    - docker build -t $IMAGE_NAME:$CI_PIPELINE_IID .
+    - docker tag $IMAGE_NAME:$CI_PIPELINE_IID $IMAGE_NAME:$CI_PIPELINE_IID
+    - docker tag $IMAGE_NAME:$CI_PIPELINE_IID $IMAGE_NAME:$ENV_TAG
+    - docker push $IMAGE_NAME:$CI_PIPELINE_IID
+    - docker push $IMAGE_NAME:$ENV_TAG
+
+
+build_image_prod:
+  extends: .build
+  variables:
+    ENV_TAG: latest
+  only:
+    - main
+  tags:
+    - arm
+
+build_image_staging:
+  extends: .build
+  variables:
+    ENV_TAG: test
+  only:
+    - staging
+  tags:
+    - arm
+
+.deploy_to_k8s:
+  image: git.zafarsaidov.uz:5050/docker/docker:dind
+  stage: deploy
+  script:
+    - cp $KUBECONFIG ~/.kube/config
+    - kubectl apply -f .kube/$NAMESPACE -n $NAMESPACE
+    - kubectl set image -n $NAMESPACE deployment/$DEPLOYMENT $DEPLOYMENT=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_PIPELINE_IID
+
+deploy_to_prod:
+  extends: .deploy_to_k8s
+  variables:
+    NAMESPACE: prod
+    DEPLOYMENT: frontend 
+    KUBECONFIG: $KUBE_CONFIG
+  only:
+    - main
+
+deploy_to_staging:
+  extends: .deploy_to_k8s
+  variables:
+    NAMESPACE: staging
+    DEPLOYMENT: frontend 
+    KUBECONFIG: $KUBE_CONFIG
+  only:
+    - staging

@@ -1,0 +1,35 @@
+.title {
+    color: $dark-blue;
+    margin-bottom: 40px;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px; 
+    letter-spacing: -0.792px;
+}
+
+.restorePassword {
+    text-decoration: underline;
+    color: $link-blue;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.006em;    
+}
+
+.restorePassword:hover {
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    color: rgb(11, 3, 226);
+}
+
+.wrapper {
+    margin: 30px 0 48px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnWrapper {
+    display: flex;
+    flex-direction: column;
+}
