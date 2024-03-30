@@ -20,6 +20,7 @@ export const Page = () => {
         ...data,
         phone_number: `+998${data?.phone_number}`,
         father_phone: `+998${data?.father_phone}`,
+        mother_phone: `+998${data?.mother_phone}`,
       },
       {
         onSuccess: () => {
@@ -109,6 +110,28 @@ export const Page = () => {
                       id="father_phone"
                       placeholder="Otangizining telefon raqami"
                       {...register("father_phone")}
+                    />
+                  </InputGroup>
+                </Stack>
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="mother_name">Onangizni ismi</label>
+                <Input
+                  placeholder="Onangizni ismi"
+                  size="md"
+                  {...register("mother_name")}
+                />
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="mother_phone">Onangizining telefon raqami</label>
+                <Stack spacing={4}>
+                  <InputGroup>
+                    <InputLeftAddon marginTop="10px">+998</InputLeftAddon>
+                    <Input
+                      type="number"
+                      id="father_phone"
+                      placeholder="Onangizining telefon raqami"
+                      {...register("mother_phone")}
                     />
                   </InputGroup>
                 </Stack>

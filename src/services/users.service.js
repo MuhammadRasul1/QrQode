@@ -4,7 +4,7 @@ import request from "services/httpRequest";
 const usersServices = {
   searchStudents: (params) => request.get('/students', { params }).then((res) => res?.data),
   searchMentors: (params) => request.get('/mentors', { params }).then((res) => res?.data),
-  createUser: (data) => request.post("/user", data),
+  createUser: (data) => request.post("/user/qrcode", data),
   getStudents: (params) => request.get("/students", {params}).then(res => res?.data),
   getMentors: (params) => request.get("/mentors", {params}).then(res => res?.data),
   getUserById: (userId) => request.get(`/user/${userId}`),
