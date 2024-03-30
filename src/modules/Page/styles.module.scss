@@ -1,18 +1,39 @@
 .page {
-    display: flex;
-    background-color: #fff;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 100px;
-  }
+  display: flex;
+  background-color: #eaeef3;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 100px;
+  overflow: auto;
+}
   
 Input {
   margin-top: 10px;
 }
+
 Select {
   margin-top: 10px;
 }
+
 .wrapper {
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+.inputWrapper {
+  margin-bottom: 12px;
+}
+
+.label {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.006em;
+  text-align: left;  
 }

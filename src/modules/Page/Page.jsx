@@ -1,13 +1,16 @@
-import {  Button,  FormControl,  Input,  InputGroup,  InputLeftAddon,  Select,  Stack,} from "@chakra-ui/react";
+import {  Box, Button,  FormControl,  Input,  InputGroup,  InputLeftAddon,  Select,  Stack, useToast,} from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import cls from "./styles.module.scss";
 import { useCreateUser } from "services/users.service";
+import { useGetGroups } from "services/groups.service";
+import { BtnSubmit } from "components/BtnSubmit";
   
 export const Page = () => {
     const { register, handleSubmit } = useForm()
 
-    const { mutate: createUser } = useCreateUser();
+    const { mutate: createUser, isPending } = useCreateUser();
+    const toast = useToast();
 
   const onSubmit = (data) => {
     createUser(
@@ -15,22 +18,16 @@ export const Page = () => {
         user_type: 'Student',
         branch_id: "3e5b92c9-8cb6-40e7-8bc5-bfff1c5a61fb",
         ...data,
-        role_id: "1ead7347-2c79-490d-b109-c9d75dcd0bac",
-        group_id: "a2338db4-38df-4cdd-a3a0-7b0d914bfae8",
-        phone_number: "+998910269095",
-        father_phone: "+998910269095",
-        // birthday: "02-02-2005",
+        phone_number: `+998${data?.phone_number}`,
+        father_phone: `+998${data?.father_phone}`,
       },
       {
         onSuccess: () => {
-          handleClose();
-          reset();
-          refetch();
           toast({
             position: 'top center',
             duration: 3000,
             isClosable: true,
-            title: 'Вы успешно добавили пользователя',
+            title: 'Вы успешно зарегистрировались в нашем платформе ', 
             status: 'success',
           });
         },
@@ -46,67 +43,102 @@ export const Page = () => {
       }
     );
   };
+  const { data: groups } = useGetGroups();
   
     return (
       <div className={cls.page}>
         <div>
           <div className={cls.wrapper}>
             <FormControl as="form" onSubmit={handleSubmit(onSubmit)}>
-              <Stack spacing={3}>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="first_name">Ismingiz</label>
                 <Input
                   placeholder="Isim"
                   size="md"
+                  id="first_name"
                   {...register("first_name")}
                 />
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="last_name">Familyangiz</label>
                 <Input
-                  placeholder="Familiya"
+                  placeholder="Isim"
                   size="md"
+                  id="last_name"
                   {...register("last_name")}
                 />
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="phone_number">Telefon raqamingiz</label>
                 <Stack spacing={4}>
-                  <InputGroup className="tellPhone">
+                  <InputGroup>
                     <InputLeftAddon marginTop="10px">+998</InputLeftAddon>
                     <Input
                       type="number"
-                      placeholder="Sizni telefon raqamiz"
+                      id="phone_number"
+                      placeholder="Telefon raqamingiz"
                       {...register("phone_number")}
                     />
                   </InputGroup>
                 </Stack>
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="birthday">Tug'ilgan sanangiz</label>
+                <Input
+                  placeholder="Tug'ilgan sanangiz"
+                  size="md"
+                  type="date"
+                  {...register("birthday")}
+                />
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="father_name">Otangizni ismi</label>
                 <Input
                   placeholder="Otangizni ismi"
                   size="md"
                   {...register("father_name")}
                 />
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="father_phone">Otangizining telefon raqami</label>
                 <Stack spacing={4}>
-                  <InputGroup className="tellPhone">
+                  <InputGroup>
                     <InputLeftAddon marginTop="10px">+998</InputLeftAddon>
                     <Input
                       type="number"
-                      placeholder="Otangizni telefon raqami"
+                      id="father_phone"
+                      placeholder="Otangizining telefon raqami"
                       {...register("father_phone")}
                     />
                   </InputGroup>
                 </Stack>
-                {/* Add other input fields with similar pattern */}
-              </Stack>
-              <Select {...register("gender")}>
-                <option value="option1">Erkak</option>
-                <option value="option2">Ayol</option>
-              </Select>
-              <Input
-                placeholder="Select Date and Time"
-                size="md"
-                type="date"
-                {...register("birthday")}
-              />
-              <Select {...register("group_id")}>
-                <option value="option1">group 1</option>
-                <option value="option2">group 2</option>
-              </Select>
-              <Button type="submit" marginTop={5} colorScheme="blue">
-                Button
-              </Button>
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="gender">Jinsi</label>
+                <Select {...register("gender")} id="gender">
+                  <option value="Erkak" selected>Erkak</option>
+                  <option value="Ayol">Ayol</option>
+                </Select>
+              </Box>
+              <Box className={cls.inputWrapper}>
+                <label className={cls.label} htmlFor="group_id">Guruhingizni tanlang</label>
+                <Select {...register("group_id")}>
+                  {groups?.groups?.map((item, index) => {
+                  return (
+                    <option key={index} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  );
+                })}
+                </Select>
+              </Box>
+              <Box display="flex" justifyContent="flex-end">
+                <BtnSubmit
+                  height="50px"
+                  text="Ro'yxatdan o'tish"
+                  isPending={isPending} 
+                />
+              </Box>
             </FormControl>
           </div>
         </div>
