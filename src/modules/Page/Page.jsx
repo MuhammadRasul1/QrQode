@@ -2,7 +2,7 @@ import {  Box, FormControl,  Input,  InputGroup,  InputLeftAddon,  Select,  Stac
 import React from "react";
 import { useForm } from "react-hook-form";
 import cls from "./styles.module.scss";
-import { useCreateUser, useGetStudents } from "services/users.service";
+import { useCreateUser, useGetSearchStudents, useGetStudents } from "services/users.service";
 import { useGetGroups } from "services/groups.service";
 import { BtnSubmit } from "components/BtnSubmit";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ export const Page = () => {
     const { mutate: createUser, isPending } = useCreateUser();
     const toast = useToast();
     const { mutate: getStudents, refetch } = useGetStudents();
+    const { data: getStudentsSearch, refetch: refetchSearch } = useGetSearchStudents();
 
   const onSubmit = (data) => {
     createUser(
@@ -34,7 +35,7 @@ export const Page = () => {
       {
         onSuccess: () => {
           navigate('success');
-          refetch();
+          refetchSearch();
           toast({
             position: 'top center',
             duration: 3000,
