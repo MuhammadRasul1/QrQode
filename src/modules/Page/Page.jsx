@@ -1,4 +1,4 @@
-import {  Box, Button,  FormControl,  Input,  InputGroup,  InputLeftAddon,  Select,  Stack, useToast,} from "@chakra-ui/react";
+import {  Box, FormControl,  Input,  InputGroup,  InputLeftAddon,  Select,  Stack, useToast,} from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import cls from "./styles.module.scss";
@@ -6,9 +6,15 @@ import { useCreateUser, useGetStudents } from "services/users.service";
 import { useGetGroups } from "services/groups.service";
 import { BtnSubmit } from "components/BtnSubmit";
 import { useNavigate } from "react-router-dom";
+import { Inputs } from "components/Input";
   
 export const Page = () => {
-    const { register, handleSubmit } = useForm()
+  const { 
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
     const navigate = useNavigate();
 
     const { mutate: createUser, isPending } = useCreateUser();
@@ -38,6 +44,10 @@ export const Page = () => {
           });
         },
         onError: (error) => {
+          setError("first_name", { message: error?.response?.data})
+          setError("last_name", { message: error?.response?.data })
+          setError("birthday", { message: error?.response?.data })
+          clg(error)
           toast({
             position: 'top center',
             duration: 3000,
@@ -49,6 +59,7 @@ export const Page = () => {
       }
     );
   };
+
   const { data: groups } = useGetGroups();
   
     return (
@@ -56,24 +67,26 @@ export const Page = () => {
         <div>
           <div className={cls.wrapper}>
             <FormControl as="form" onSubmit={handleSubmit(onSubmit)}>
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="first_name">Ismingiz</label>
-                <Input
-                  placeholder="Isim"
-                  size="md"
-                  id="first_name"
-                  {...register("first_name")}
-                />
-              </Box>
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="last_name">Familyangiz</label>
-                <Input
-                  placeholder="Isim"
-                  size="md"
-                  id="last_name"
-                  {...register("last_name")}
-                />
-              </Box>
+              <Inputs
+                label="Ismingiz"
+                id="first_name"
+                type="text"
+                placeholder="Isimngizning kiriting"
+                register={register}
+                name="first_name"
+                error={errors?.first_name}
+                required 
+              />
+              <Inputs
+                label="Familyangiz"
+                id="last_name"
+                type="text"
+                placeholder="Familiyangizning kiriting"
+                register={register}
+                name="last_name"
+                error={errors?.last_name}
+                required 
+              />
               <Box className={cls.inputWrapper}>
                 <label className={cls.label} htmlFor="phone_number">Telefon raqamingiz</label>
                 <Stack spacing={4}>
@@ -88,15 +101,16 @@ export const Page = () => {
                   </InputGroup>
                 </Stack>
               </Box>
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="birthday">Tug'ilgan sanangiz</label>
-                <Input
-                  placeholder="Tug'ilgan sanangiz"
-                  size="md"
-                  type="date"
-                  {...register("birthday")}
-                />
-              </Box>
+              <Inputs
+                label="Tug'ilgan sanangiz"
+                id="last_name"
+                type="date"
+                placeholder="Tug'ilgan sanangizning kiriting"
+                register={register}
+                name="birthday"
+                error={errors?.last_name}
+                required 
+              />
               <Box className={cls.inputWrapper}>
                 <label className={cls.label} htmlFor="father_name">Otangizni ismi</label>
                 <Input
@@ -137,20 +151,21 @@ export const Page = () => {
                       id="father_phone"
                       placeholder="Onangizining telefon raqami"
                       {...register("mother_phone")}
+                      maxLength={9}
                     />
                   </InputGroup>
                 </Stack>
               </Box>
               <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="gender">Jinsi</label>
-                <Select {...register("gender")} id="gender">
+                <label className={cls.label} htmlFor="gender">Jinsi<span className={cls.required}>*</span></label>
+                <Select {...register("gender")} id="gender" required>
                   <option value="Мужчина" selected>Erkak</option>
                   <option value="Женщина">Ayol</option>
                 </Select>
               </Box>
               <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="group_id">Guruhingizni tanlang</label>
-                <Select {...register("group_id")}>
+                <label className={cls.label} htmlFor="group_id">Guruhingizni tanlang<span className={cls.required}>*</span></label>
+                <Select {...register("group_id")} required>
                   {groups?.groups?.map((item, index) => {
                   return (
                     <option key={index} value={item?.id}>
@@ -160,9 +175,9 @@ export const Page = () => {
                 })}
                 </Select>
               </Box>
-              <Box display="flex" justifyContent="flex-end">
+              <Box display="flex" justifyContent="flex-end" mt={30}>
                 <BtnSubmit
-                  height="50px"
+                  height="45px"
                   text="Ro'yxatdan o'tish"
                   isPending={isPending} 
                 />

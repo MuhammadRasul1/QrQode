@@ -1,20 +1,53 @@
-
-import { Input } from "@chakra-ui/react";
+import React from "react";
 import cls from "./styles.module.scss";
+import clsx from "clsx";
+import { Box, Input } from "@chakra-ui/react";
+import Error from "assets/img/icon/error.svg";
 
-export const Inputs = ({name, required, maxLength, register = () => {}, placeholder, type, ariaLabel, id, ...props}) => {
+export const Inputs = React.forwardRef((
+    {
+        name, 
+        error, 
+        rest,
+        minLength,
+        maxLength,
+        required,
+        register = () => {},
+        placeholder,
+        type,
+        label,
+        id,
+        ref,
+        ...props
+    }) => {
 
-    return(
-        <Input
-            // className={cls.input} 
-            type={type} 
-            id={id}
-            maxLength={maxLength}
-            placeholder={placeholder}
-            aria-label={ariaLabel}
-            {...register(name)}
-            required={required} 
-            {...props}
-        />
+    return (
+        <Box className={cls.wrapper}>
+            <Box display="flex" flexDirection="column">
+                <label className={cls.label} htmlFor={id}>
+                    {label} 
+                    <span className={cls.required}>*</span>
+                </label>
+                <Input
+                    className={clsx(cls.input, { [cls.error]: !!error?.message })}
+                    {...rest}
+                    ref={ref}
+                    {...register(name)}
+                    {...props}
+                    type={type}
+                    id={id}
+                    minLength={minLength ? minLength : 2}
+                    maxLength={maxLength ? maxLength : 16}
+                    placeholder={placeholder}
+                    required={required} 
+                />
+            </Box>
+            { error?.message && 
+             <Box display="flex" alignItems="center" marginTop="8px">
+                <img src={Error} alt="error" width={16} height={16}/>
+                <p style={{ color: 'red', marginLeft: '8px' }}>{error?.message}</p>
+             </Box>
+            }
+        </Box>
     )
-}
+})
