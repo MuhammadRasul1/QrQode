@@ -28,6 +28,7 @@ import { Students } from 'modules/Admin/Students';
 import { StudentDetail } from 'modules/Admin/Students/Components/StudentDetail';
 import { GroupsDetail } from 'modules/Admin/Groups/Components/GroupsDetail';
 import { Page } from 'modules/Page/Page';
+import { PageSuccess } from 'modules/Page/PageSuccess/PageSuccess';
 
 export const Router = observer(() => {
   const isAuth = authStore.isAuth;
@@ -81,7 +82,7 @@ export const Router = observer(() => {
     return (
       <Routes>
         <Route path="" element={<Page />} />
-        <Route path="success" element={<Page />} />
+        <Route path="success" element={<PageSuccess />} />
       </Routes>
     );
   // }

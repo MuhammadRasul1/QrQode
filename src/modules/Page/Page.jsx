@@ -26,7 +26,7 @@ export const Page = () => {
       },
       {
         onSuccess: () => {
-          navigate('/success');
+          navigate('success');
           toast({
             position: 'top center',
             duration: 3000,
