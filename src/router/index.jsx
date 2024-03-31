@@ -81,6 +81,7 @@ export const Router = observer(() => {
     return (
       <Routes>
         <Route path="" element={<Page />} />
+        <Route path="success" element={<Page />} />
       </Routes>
     );
   // }

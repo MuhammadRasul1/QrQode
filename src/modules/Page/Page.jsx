@@ -5,9 +5,11 @@ import cls from "./styles.module.scss";
 import { useCreateUser } from "services/users.service";
 import { useGetGroups } from "services/groups.service";
 import { BtnSubmit } from "components/BtnSubmit";
+import { useNavigate } from "react-router-dom";
   
 export const Page = () => {
     const { register, handleSubmit } = useForm()
+    const navigate = useNavigate();
 
     const { mutate: createUser, isPending } = useCreateUser();
     const toast = useToast();
@@ -24,6 +26,7 @@ export const Page = () => {
       },
       {
         onSuccess: () => {
+          navigate('/success');
           toast({
             position: 'top center',
             duration: 3000,
