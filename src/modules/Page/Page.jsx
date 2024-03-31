@@ -2,7 +2,7 @@ import {  Box, Button,  FormControl,  Input,  InputGroup,  InputLeftAddon,  Sele
 import React from "react";
 import { useForm } from "react-hook-form";
 import cls from "./styles.module.scss";
-import { useCreateUser } from "services/users.service";
+import { useCreateUser, useGetStudents } from "services/users.service";
 import { useGetGroups } from "services/groups.service";
 import { BtnSubmit } from "components/BtnSubmit";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ export const Page = () => {
 
     const { mutate: createUser, isPending } = useCreateUser();
     const toast = useToast();
+    const { mutate: getStudents, refetch } = useGetStudents();
 
   const onSubmit = (data) => {
     createUser(
@@ -27,6 +28,7 @@ export const Page = () => {
       {
         onSuccess: () => {
           navigate('success');
+          refetch();
           toast({
             position: 'top center',
             duration: 3000,
