@@ -1,12 +1,15 @@
-import {  Box, FormControl,  Input,  InputGroup,  InputLeftAddon,  Select,  Stack, useToast,} from "@chakra-ui/react";
+import {  Box, FormControl,  Input,  Select, useToast,} from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import cls from "./styles.module.scss";
-import { useCreateUser, useGetSearchStudents, useGetStudents } from "services/users.service";
+import { useCreateUser } from "services/users.service";
 import { useGetGroups } from "services/groups.service";
 import { BtnSubmit } from "components/BtnSubmit";
 import { useNavigate } from "react-router-dom";
 import { Inputs } from "components/Input";
+import { useGetBranches } from "services/branches.service";
+import { CustomSelect } from "components/CustomSelect";
+import { PhoneNumber } from "components/PhoneNumber";
   
 export const Page = () => {
   const { 
@@ -19,14 +22,11 @@ export const Page = () => {
 
     const { mutate: createUser, isPending } = useCreateUser();
     const toast = useToast();
-    const { mutate: getStudents, refetch } = useGetStudents();
-    const { data: getStudentsSearch, refetch: refetchSearch } = useGetSearchStudents();
 
   const onSubmit = (data) => {
     createUser(
       {
         user_type: 'Student',
-        branch_id: "3e5b92c9-8cb6-40e7-8bc5-bfff1c5a61fb",
         ...data,
         phone_number: `+998${data?.phone_number}`,
         father_phone: `+998${data?.father_phone}`,
@@ -61,13 +61,38 @@ export const Page = () => {
     );
   };
 
+  
+  const { data: branches } = useGetBranches();
+
+  const optionsBranches = branches?.branchs?.map((item, index) => ({
+    key: index,
+    value: item?.id,
+    label: item?.name,
+  }));
+
   const { data: groups } = useGetGroups();
+
+  const optionsGroups = groups?.groups?.map((item, index) => ({
+    key: index,
+    value: item?.id,
+    label: item?.name,
+  }));  
   
     return (
       <div className={cls.page}>
         <div>
           <div className={cls.wrapper}>
             <FormControl as="form" onSubmit={handleSubmit(onSubmit)}>
+              <CustomSelect
+                label="Филиалы"
+                id="branch_id"
+                register={register}
+                name="branch_id"
+                error={errors?.branch_id}
+                required
+                options={optionsBranches}
+                placeholder="Выберите филиал"
+              />
               <Inputs
                 label="Ismingiz"
                 id="first_name"
@@ -88,20 +113,16 @@ export const Page = () => {
                 error={errors?.last_name}
                 required 
               />
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="phone_number">Telefon raqamingiz</label>
-                <Stack spacing={4}>
-                  <InputGroup>
-                    <InputLeftAddon marginTop="10px">+998</InputLeftAddon>
-                    <Input
-                      type="number"
-                      id="phone_number"
-                      placeholder="Telefon raqamingiz"
-                      {...register("phone_number")}
-                    />
-                  </InputGroup>
-                </Stack>
-              </Box>
+             <PhoneNumber 
+                label="Telefon raqamingizning kiriting"
+                id="phone_number"
+                type="text"
+                placeholder="telefon raqamingizning kiriting"
+                register={register}
+                name="phone_number"
+                error={errors?.phone_number}
+                isRequired
+              />
               <Inputs
                 label="Tug'ilgan sanangiz"
                 id="last_name"
@@ -120,20 +141,15 @@ export const Page = () => {
                   {...register("father_name")}
                 />
               </Box>
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="father_phone">Otangizining telefon raqami</label>
-                <Stack spacing={4}>
-                  <InputGroup>
-                    <InputLeftAddon marginTop="10px">+998</InputLeftAddon>
-                    <Input
-                      type="number"
-                      id="father_phone"
-                      placeholder="Otangizining telefon raqami"
-                      {...register("father_phone")}
-                    />
-                  </InputGroup>
-                </Stack>
-              </Box>
+              <PhoneNumber 
+                label="Otangizining telefon raqami"
+                id="father_phone"
+                type="text"
+                placeholder="Otangizining telefon raqami"
+                register={register}
+                name="father_phone"
+                error={errors?.father_phone}
+              />
               <Box className={cls.inputWrapper}>
                 <label className={cls.label} htmlFor="mother_name">Onangizni ismi</label>
                 <Input
@@ -142,21 +158,15 @@ export const Page = () => {
                   {...register("mother_name")}
                 />
               </Box>
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="mother_phone">Onangizining telefon raqami</label>
-                <Stack spacing={4}>
-                  <InputGroup>
-                    <InputLeftAddon marginTop="10px">+998</InputLeftAddon>
-                    <Input
-                      type="number"
-                      id="father_phone"
-                      placeholder="Onangizining telefon raqami"
-                      {...register("mother_phone")}
-                      maxLength={9}
-                    />
-                  </InputGroup>
-                </Stack>
-              </Box>
+              <PhoneNumber 
+                label="Onangizining telefon raqami"
+                id="mother_phone"
+                type="text"
+                placeholder="Onangizining telefon raqamini kiriting"
+                register={register}
+                name="mother_phone"
+                error={errors?.mother_phone}
+              />
               <Box className={cls.inputWrapper}>
                 <label className={cls.label} htmlFor="gender">Jinsi<span className={cls.required}>*</span></label>
                 <Select {...register("gender")} id="gender" required>
@@ -164,18 +174,16 @@ export const Page = () => {
                   <option value="Женщина">Ayol</option>
                 </Select>
               </Box>
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="group_id">Guruhingizni tanlang<span className={cls.required}>*</span></label>
-                <Select {...register("group_id")} required>
-                  {groups?.groups?.map((item, index) => {
-                  return (
-                    <option key={index} value={item?.id}>
-                      {item?.name}
-                    </option>
-                  );
-                })}
-                </Select>
-              </Box>
+              <CustomSelect
+                label="Guruhingizni tanlang"
+                id="group_id"
+                register={register}
+                name="group_id"
+                error={errors?.group_id}
+                required
+                options={optionsGroups}
+                placeholder="Guruhingizning tanlang"
+              />
               <Box display="flex" justifyContent="flex-end" mt={30}>
                 <BtnSubmit
                   height="45px"
