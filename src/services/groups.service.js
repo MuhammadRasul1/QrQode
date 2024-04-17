@@ -4,7 +4,7 @@ import request from 'services/httpRequest';
 const groupsServices = {
   createGroup: (data) => request.post('/group', data).then((res) => res?.data),
   getGroupsUsers: () => request.get('/usergroup').then((res) => res?.data),
-  getGroups: () => request.get('/group').then((res) => res?.data),
+  getGroups: (params) => request.get('/group', { params }).then((res) => res?.data),
   getGroupsId: (courseId) => request.get(`/group/course/${courseId}`).then((res) => res?.data),
   getGroupById: (groupId) => request.get(`/group/${groupId}`).then((res) => res?.data),
   updateGroupById: (groupId) => request.put(`/group/${groupId}`).then((res) => res?.data),

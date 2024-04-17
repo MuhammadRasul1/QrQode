@@ -18,11 +18,9 @@ export const Page = () => {
     formState: { errors },
     setError,
   } = useForm();
-    const navigate = useNavigate();
-
-    const { mutate: createUser, isPending } = useCreateUser();
-    const toast = useToast();
-
+  const navigate = useNavigate();
+  const { mutate: createUser, isPending } = useCreateUser();
+  const toast = useToast();
   const onSubmit = (data) => {
     createUser(
       {
@@ -62,7 +60,7 @@ export const Page = () => {
   };
 
   
-  const { data: branches } = useGetBranches();
+  const { data: branches } = useGetBranches({academy_id: "dda198f6-640e-4e72-a26e-31b698473a12"});
 
   const optionsBranches = branches?.branchs?.map((item, index) => ({
     key: index,
@@ -70,7 +68,7 @@ export const Page = () => {
     label: item?.name,
   }));
 
-  const { data: groups } = useGetGroups();
+  const { data: groups } = useGetGroups({academy_id: "dda198f6-640e-4e72-a26e-31b698473a12"});
 
   const optionsGroups = groups?.groups?.map((item, index) => ({
     key: index,
@@ -170,6 +168,7 @@ export const Page = () => {
               <Box className={cls.inputWrapper}>
                 <label className={cls.label} htmlFor="gender">Jinsi<span className={cls.required}>*</span></label>
                 <Select {...register("gender")} id="gender" required>
+                  <option value="" disabled>Jinsingizni tanlang</option>
                   <option value="Мужчина" selected>Erkak</option>
                   <option value="Женщина">Ayol</option>
                 </Select>
@@ -180,7 +179,7 @@ export const Page = () => {
                 register={register}
                 name="group_id"
                 error={errors?.group_id}
-                required
+                // required
                 options={optionsGroups}
                 placeholder="Guruhingizning tanlang"
               />
