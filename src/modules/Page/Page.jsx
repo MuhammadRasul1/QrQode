@@ -29,6 +29,7 @@ export const Page = () => {
         phone_number: `+998${data?.phone_number}`,
         father_phone: `+998${data?.father_phone}`,
         mother_phone: `+998${data?.mother_phone}`,
+        academy_id: "dda198f6-640e-4e72-a26e-31b698473a12",
       },
       {
         onSuccess: () => {
