@@ -1,200 +1,212 @@
-import {  Box, FormControl,  Input,  Select, useToast,} from "@chakra-ui/react";
-import React from "react";
-import { useForm } from "react-hook-form";
-import cls from "./styles.module.scss";
-import { useCreateUser } from "services/users.service";
-import { useGetGroups } from "services/groups.service";
-import { BtnSubmit } from "components/BtnSubmit";
-import { useNavigate } from "react-router-dom";
-import { Inputs } from "components/Input";
-import { useGetBranches } from "services/branches.service";
-import { CustomSelect } from "components/CustomSelect";
-import { PhoneNumber } from "components/PhoneNumber";
-  
+import Turkiyaimg from './img/turkiya.jpg';
+import Dubia from './img/dubia.jpeg';
+import Qatar from './img/Qatar.jpg';
+import China from './img/china.jpeg';
+import Japan from './img/japan.jpeg';
+import Malaysia from './img/malasiya.jpeg';
+import Logo from './img/logot.png';
+import ImgAir from './img/air.jpg';
+import ImgAir2 from './img/air2.jpg';
+import ImgAir3 from './img/air3.jpeg';
+import { MdRefresh } from 'react-icons/md';
+import { CiDollar } from 'react-icons/ci';
+import { SiSpringsecurity } from 'react-icons/si';
+import cls from './styles.module.scss';
+
 export const Page = () => {
-  const { 
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm();
-  const navigate = useNavigate();
-  const { mutate: createUser, isPending } = useCreateUser();
-  const toast = useToast();
-  const onSubmit = (data) => {
-    createUser(
-      {
-        user_type: 'Student',
-        ...data,
-        phone_number: `+998${data?.phone_number}`,
-        father_phone: `+998${data?.father_phone}`,
-        mother_phone: `+998${data?.mother_phone}`,
-        academy_id: "dda198f6-640e-4e72-a26e-31b698473a12",
-      },
-      {
-        onSuccess: () => {
-          navigate('success');
-          refetchSearch();
-          toast({
-            position: 'top center',
-            duration: 3000,
-            isClosable: true,
-            title: 'Вы успешно зарегистрировались в нашем платформе ', 
-            status: 'success',
-          });
-        },
-        onError: (error) => {
-          setError("first_name", { message: error?.response?.data})
-          setError("last_name", { message: error?.response?.data })
-          setError("birthday", { message: error?.response?.data })
-          clg(error)
-          toast({
-            position: 'top center',
-            duration: 3000,
-            isClosable: true,
-            title: error?.response?.data,
-            status: 'error',
-          });
-        },
-      }
-    );
-  };
-
-  
-  const { data: branches } = useGetBranches({academy_id: "dda198f6-640e-4e72-a26e-31b698473a12"});
-
-  const optionsBranches = branches?.branchs?.map((item, index) => ({
-    key: index,
-    value: item?.id,
-    label: item?.name,
-  }));
-
-  const { data: groups } = useGetGroups({academy_id: "dda198f6-640e-4e72-a26e-31b698473a12"});
-
-  const optionsGroups = groups?.groups?.map((item, index) => ({
-    key: index,
-    value: item?.id,
-    label: item?.name,
-  }));  
-  
-    return (
-      <div className={cls.page}>
-        <div>
+  return (
+    <div>
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <img width="100px" className={cls.logo} src={Logo} alt="hello travel" />
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <a href="#home">Home</a>
+            </li>
+            <li>
+              <a href="#contact">Blogs</a>
+            </li>
+            <li>
+              <a href="#destinations">Destinations</a>
+            </li>
+            <li>
+              <a href="#contact">News</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <section id="home" className={cls.posationAbsole}>
           <div className={cls.wrapper}>
-            <FormControl as="form" onSubmit={handleSubmit(onSubmit)}>
-              <CustomSelect
-                label="Филиалы"
-                id="branch_id"
-                register={register}
-                name="branch_id"
-                error={errors?.branch_id}
-                required
-                options={optionsBranches}
-                placeholder="Выберите филиал"
-              />
-              <Inputs
-                label="Ismingiz"
-                id="first_name"
-                type="text"
-                placeholder="Isimngizning kiriting"
-                register={register}
-                name="first_name"
-                error={errors?.first_name}
-                required 
-              />
-              <Inputs
-                label="Familyangiz"
-                id="last_name"
-                type="text"
-                placeholder="Familiyangizning kiriting"
-                register={register}
-                name="last_name"
-                error={errors?.last_name}
-                required 
-              />
-             <PhoneNumber 
-                label="Telefon raqamingizning kiriting"
-                id="phone_number"
-                type="text"
-                placeholder="telefon raqamingizning kiriting"
-                register={register}
-                name="phone_number"
-                error={errors?.phone_number}
-                isRequired
-              />
-              <Inputs
-                label="Tug'ilgan sanangiz"
-                id="last_name"
-                type="date"
-                placeholder="Tug'ilgan sanangizning kiriting"
-                register={register}
-                name="birthday"
-                error={errors?.last_name}
-                required 
-              />
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="father_name">Otangizni ismi</label>
-                <Input
-                  placeholder="Otangizni ismi"
-                  size="md"
-                  {...register("father_name")}
-                />
-              </Box>
-              <PhoneNumber 
-                label="Otangizining telefon raqami"
-                id="father_phone"
-                type="text"
-                placeholder="Otangizining telefon raqami"
-                register={register}
-                name="father_phone"
-                error={errors?.father_phone}
-              />
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="mother_name">Onangizni ismi</label>
-                <Input
-                  placeholder="Onangizni ismi"
-                  size="md"
-                  {...register("mother_name")}
-                />
-              </Box>
-              <PhoneNumber 
-                label="Onangizining telefon raqami"
-                id="mother_phone"
-                type="text"
-                placeholder="Onangizining telefon raqamini kiriting"
-                register={register}
-                name="mother_phone"
-                error={errors?.mother_phone}
-              />
-              <Box className={cls.inputWrapper}>
-                <label className={cls.label} htmlFor="gender">Jinsi<span className={cls.required}>*</span></label>
-                <Select {...register("gender")} id="gender" required>
-                  <option value="" disabled>Jinsingizni tanlang</option>
-                  <option value="Мужчина" selected>Erkak</option>
-                  <option value="Женщина">Ayol</option>
-                </Select>
-              </Box>
-              <CustomSelect
-                label="Guruhingizni tanlang"
-                id="group_id"
-                register={register}
-                name="group_id"
-                error={errors?.group_id}
-                // required
-                options={optionsGroups}
-                placeholder="Guruhingizning tanlang"
-              />
-              <Box display="flex" justifyContent="flex-end" mt={30}>
-                <BtnSubmit
-                  height="45px"
-                  text="Ro'yxatdan o'tish"
-                  isPending={isPending} 
-                />
-              </Box>
-            </FormControl>
+            <div className={cls.title}>
+              <h2>Good Morning!</h2>
+              <p>Explore beautiful places in the world with Acenda</p>
+            </div>
+            <div className={cls.info}>
+              <div>
+                <p>
+                  <i className="fas fa-map-marker-alt"></i> Location
+                </p>
+                <p class="Add">Add destination</p>
+              </div>
+              <div>
+                <p>
+                  <i class="far fa-calendar"></i>
+                  Check in
+                </p>
+                <p class="Add">Add dates</p>
+              </div>
+              <div>
+                <p>
+                  <i class="far fa-calendar"></i>
+                  Check out
+                </p>
+                <p class="Add">Add dates</p>
+              </div>
+              <div>
+                <p>
+                  <i class="fas fa-user-circle"></i>
+                  Guests
+                </p>
+                <p class="Add">Add Guests</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    );
-  }
-  
+        </section>
+        <section id="home" class="home-section">
+          <p>WHY CHOOSE US?</p>
+          <div className="wrraper">
+            <div class="prices">
+              <div class="priceicon">
+                <CiDollar />
+              </div>
+              <p>Competitive Prices</p>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
+            </div>
+            <div class="prices">
+              <div class="priceicon">
+                <SiSpringsecurity />
+              </div>
+              <p>Secure Booking</p>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
+            </div>
+            <div class="prices">
+              <div class="priceicon">
+                <MdRefresh />
+              </div>
+              <p>Seamless Experience </p>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
+            </div>
+          </div>
+        </section>
+        <section id="home" class="home-section">
+          <p>Our partners</p>
+          <div className="wrraper">
+            <div class="prices">
+              <div class="priceicon">
+                <img className="imgAir" src={ImgAir} alt="" />
+              </div>
+              <p>Uzairways</p>
+            </div>
+            <div class="prices">
+              <div class="priceicon">
+                <img className="imgAir" src={ImgAir2} alt="" />
+              </div>
+              <p>CentrumAir</p>
+            </div>
+            <div class="prices">
+              <div class="priceicon">
+                <img className="imgAirb" src={ImgAir3} alt="" />
+              </div>
+              <p>BatikAir </p>
+            </div>
+          </div>
+        </section>
+        <section id="destinations" class="destinations-section">
+          <h2>Featured Destinations</h2>
+
+          <div class="destination">
+            <div>
+              <img src={Turkiyaimg} alt="Destination Image" />
+              <h3>Turkey</h3>
+              <p>Turkey enjoys a variety of climates</p>
+              <a href="#booking" class="btn">
+                Book Now
+              </a>
+            </div>
+            <div>
+              <img src={Dubia} alt="Destination Image" />
+              <h3>Dubai</h3>
+              <p>Beautiful beaches, record-breaking attractions </p>
+              <a href="#booking" class="btn">
+                Book Now
+              </a>
+            </div>
+            <div>
+              <img src={Qatar} alt="Destination Image" />
+              <h3>Qatar</h3>
+              <p>Primarily Qatar is famous for the 2022 World Cup</p>
+              <a href="#booking" class="btn">
+                Book Now
+              </a>
+            </div>
+          </div>
+          <div class="destination">
+            <div>
+              <img src={China} alt="Destination Image" />
+              <h3>China</h3>
+              <p>China is known for its rich history,</p>
+              <a href="#contact" class="btn">
+                Book Now
+              </a>
+            </div>
+            <div>
+              <img src={Japan} alt="Destination Image" />
+              <h3>China</h3>
+              <p>Experience Vincent of the Big river.</p>
+              <a href="#contact" class="btn">
+                Book Now
+              </a>
+            </div>
+            <div>
+              <img src={Malaysia} alt="Destination Image" />
+              <h3>Italiya</h3>
+              <p>Experience the culture of the country.</p>
+              <a href="#contact" class="btn">
+                Book Now
+              </a>
+            </div>
+          </div>
+        </section>
+        <section id="about" class="about-section">
+          <h2>About Us</h2>
+          <p>
+            Enjoy our profitable loyalty program to earn points and use them to pay for bookings. Get special B2B rates
+            and low prices to earn even more. Choose a work model, Net or Gross, that works for you. Pay by invoice or
+            credit card, or use a credit limit to pay later. Use the Selection tool and Pay by Link option to engage
+            with clients and speed up your bookings even more. We offer 24/7 multilingual support and exclusive
+            pre-check service to reconfirm each of your bookings.
+          </p>
+        </section>
+        <section id="contact" class="contact-section">
+          <h2>Contact Us</h2>
+          <p>Email: contact@travelsite.com</p>
+          <p>Phone: +998 931916162</p>
+        </section>
+      </main>
+      <footer>
+        <p>&copy; 2022 Travel Site. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+};
