@@ -18,7 +18,6 @@ export const Page = () => {
     formState: { errors },
     setError,
   } = useForm();
-
   
   const navigate = useNavigate();
   const { mutate: createUser, isPending } = useCreateUser();

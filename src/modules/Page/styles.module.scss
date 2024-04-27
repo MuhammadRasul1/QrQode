@@ -1,44 +1,250 @@
-.page {
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+header {
+  background-size: cover;
+  background-position: center;
+  background-image: url(./assets/imags/bg.png);
+  height: 600px;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+nav {
   display: flex;
-  background-color: #f0f0f0; 
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+.logo {
+  width: 100px;
+  border-radius: 50%;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+nav ul li a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  overflow: scroll;
-}
-  
-Input {
-  margin-top: 10px;
-}
-
-Select {
-  margin-top: 10px;
+  height: 2px;
+  background-color: rgb(92, 92, 155);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
 }
 
-.wrapper {
-  padding: 15px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+nav ul li a:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+main {
+  padding: 2rem;
+  margin: 0 auto; /* Center content horizontally */
+  max-width: 1200px; /* Set a maximum width */
+}
+
+section {
+  margin-bottom: 2rem;
   background-color: #fff;
-  margin-top: 400px;
-  margin-bottom: 30px;
-  border-radius: 8px;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.inputWrapper {
-  margin-bottom: 12px;
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.label {
-  font-family: Inter;
+.btn:hover {
+  background-color: #555;
+}
+
+.destination {
+  display: flex;
+  gap: 18px;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.destination img {
+  height: 260px;
+  width: 354px;
+}
+
+footer {
+  background-color: cadetblue;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.home-section {
+  text-align: start;
+  border-radius: 30px;
+}
+.posationAbsole {
+  margin-top: -100px;
+  border-radius: 30px;
+}
+.wrapper {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  gap: 30px;
+}
+.info {
+  display: flex;
+  margin-top: 20px;
+  gap: 50px;
+}
+
+.title {
+  padding-left: 10px;
+}
+.wrapper h2 {
+  color: #008ec4;
+  text-align: start;
+}
+
+.Add {
+  color: #555;
+  margin-top: -10px;
   font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: -0.006em;
-  text-align: left;  
+}
+.teacher-card {
+  display: flex;
+}
+.card {
+  display: flex;
+
+  background-size: cover;
+  background-position: center;
+  gap: 20px;
 }
 
-.required {
-  margin-left: 4px;
-  color: $required;
+.translator-card {
+  text-align: start;
+  width: 400px;
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.translator-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.translator-info {
+  flex: 1;
+}
+
+.translator-name {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.translator-subject {
+  margin: 5px 0;
+  color: #555;
+}
+
+.translator-description {
+  margin: 10px 0;
+}
+
+.translator-contact {
+  margin-top: 10px;
+  color: #777;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+/* Styles for the home section */
+.home-section {
+  padding: 50px;
+  text-align: center;
+}
+.wrraper {
+  display: flex;
+  gap: 20px;
+}
+/* Styles for the heading */
+.home-section p {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Styles for the prices section */
+.prices {
+  margin-top: 40px;
+}
+
+/* Styles for the price icon */
+.priceicon {
+  font-size: 48px;
+  color: #008ec4; /* Green color for the dollar icon */
+  margin-bottom: 20px;
+}
+
+/* Styles for the price text */
+.prices p:nth-child(2) {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
